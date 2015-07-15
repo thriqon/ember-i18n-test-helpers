@@ -3,31 +3,26 @@ import { getContext } from 'ember-test-helpers';
 
 import Ember from 'ember';
 
-export var MockService = Ember.Object.extend({
-	translationTable: null,
-
-});
+const DO_NOT_INSTANTIATE = {
+	instantiate: false
+};
 
 export function mockI18n() {
 	const context = getContext();
 
 	var translations = {};
 
-	var tHelper = function t(key, params) {
+	let t = function tHelper(key, params) {
 		let entry = translations[key];
 		Ember.assert(`Key [${key}] should be present in translation table`, !!entry);
 
 		return entry(params);
 	};
 
-	context.registry.register('service:i18n', {
-		t: tHelper
-	}, {
-		instantiate: false
-	});
-	context.registry.register('helper:t', tHelper);
+	context.registry.register('service:i18n', {t}, DO_NOT_INSTANTIATE);
+	context.registry.register('helper:t', t);
 
-	Ember.HTMLBars._registerHelper('t', tHelper);
+	Ember.HTMLBars._registerHelper('t', t);
 
 	return {
 		with(key, result) {
