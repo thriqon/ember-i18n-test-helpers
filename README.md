@@ -1,5 +1,7 @@
 # Ember-i18n-test-mock
 
+[![Build Status](https://travis-ci.org/thriqon/ember-i18n-test-mock.svg?branch=master)](https://travis-ci.org/thriqon/ember-i18n-test-mock)
+
 Components etc. in Ember make regular use of translated contents, either
 calculated in code or accessed in templates.
 Conceptually, these units expect a translation service to be made
