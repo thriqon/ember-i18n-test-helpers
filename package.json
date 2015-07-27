@@ -1,6 +1,6 @@
 {
   "name": "ember-i18n-test-helpers",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unit test helpers mocking an I18n environment",
   "directories": {
     "doc": "doc",
@@ -43,5 +43,15 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thriqon/ember-i18n-test-helpers.git"
+  },
+  "homepage": "https://github.com/thriqon/ember-i18n-test-helpers",
+  "author": {
+    "name": "Jonas Weber",
+    "email": "mail@jonasw.de",
+    "url": "https://jonasw.de"
   }
 }
