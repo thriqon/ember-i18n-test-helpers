@@ -2,7 +2,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import Ember from 'ember';
 
-import { mockI18n } from 'ember-i18n-test-mock';
+import { mockI18n } from 'ember-i18n-test-helpers';
 
 moduleForComponent('time-block', {
 	unit: true,

@@ -1,5 +1,5 @@
 
-import { hoistedToFunction } from 'ember-i18n-test-mock';
+import { hoistedToFunction } from 'ember-i18n-test-helpers';
 import { module, test } from 'qunit';
 
 module('Unit - hoisting');

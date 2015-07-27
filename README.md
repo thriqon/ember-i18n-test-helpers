@@ -1,6 +1,6 @@
-# Ember-i18n-test-mock
+# Ember-i18n-test-helpers
 
-[![Build Status](https://travis-ci.org/thriqon/ember-i18n-test-mock.svg?branch=master)](https://travis-ci.org/thriqon/ember-i18n-test-mock)
+[![Build Status](https://travis-ci.org/thriqon/ember-i18n-test-helpers.svg?branch=master)](https://travis-ci.org/thriqon/ember-i18n-test-helpers)
 
 Components etc. in Ember make regular use of translated contents, either
 calculated in code or accessed in templates.
@@ -16,9 +16,13 @@ your tests, making them both more readable and less brittle to changing translat
 
 ## Usage
 
+    ember install ember-i18n-test-helpers
+
+then you can do:
+
 ```javascript
 
-import { mockI18n } from 'ember-i18n-test-mock';
+import { mockI18n } from 'ember-i18n-test-helpers';
 
 moduleForComponent('time-block', {
 	unit: true,
@@ -53,14 +57,11 @@ test('is displaying now if difference is 0', function (assert) {
 ```
 
 
-## Installation
+## Contributing
 
 * `git clone` this repository
 * `npm install`
 * `bower install`
-
-## Running
-
 * `ember server`
 * Visit your app at http://localhost:4200.
 
