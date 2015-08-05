@@ -1,6 +1,6 @@
 {
   "name": "ember-i18n-test-helpers",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Unit test helpers mocking an I18n environment",
   "directories": {
     "doc": "doc",
