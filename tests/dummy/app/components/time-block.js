@@ -9,8 +9,10 @@ export default Ember.Component.extend({
 	humanizedDifference: Ember.computed('difference', function () {
 		if (this.get('difference') === 0) {
 			return this.get('i18n').t('global.now');
-		} else {
+		} else if (this.get('difference') < 0) {
 			return this.get('i18n').t('global.ago', {seconds: -this.get('difference')});
+		} else {
+			return this.get('i18n').t('global.in', {seconds: this.get('difference')});
 		}
 	})
 });
