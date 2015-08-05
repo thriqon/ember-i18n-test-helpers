@@ -10,6 +10,7 @@ moduleForComponent('time-block', {
 	beforeEach() {
 		mockI18n()
 			.with('global.now', 'NOW')
+			.withoutDefault() // no-op
 			.with('global.ago', params => 'AGO_' + params.seconds);
 	}
 });
@@ -34,7 +35,6 @@ test('is returning now if difference is 0', function (assert) {
 	assert.equal(component.get('humanizedDifference'), 'NOW');
 });
 
-
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('time-block', {
@@ -44,7 +44,8 @@ moduleForComponent('time-block', {
 		mockI18n()
 			.with('global.now', 'NOW')
 			.with('global.ago', params => 'AGO_' + params.seconds)
-			.with('global.introduction', 'INTRO');
+			.with('global.introduction', 'INTRO')
+			.withDefault('def');
 	}
 });
 
@@ -56,3 +57,8 @@ test('is displaying an introduction and then now if difference is 0', function (
 	assert.equal(this.$().text().trim(), "INTRO NOW");
 });
 
+test('it renders when difference is positive', function (assert) {
+	assert.expect(0);
+
+	this.render(hbs`{{time-block difference=5}}`);
+});

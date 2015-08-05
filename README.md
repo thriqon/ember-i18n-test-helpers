@@ -57,13 +57,38 @@ test('is displaying now if difference is 0', function (assert) {
 });
 ```
 
+Unless you set a default value (see below), the translation helpers will throw an error
+(thus usually failing the test), if the translation for a key was not specified beforehand.
+
+### Default Value
+
+If you do not want to specify the full set of translations your component needs
+and don't care for the exact strings it generates, you can set a default value
+for the `t` helpers:
+
+```javascript
+beforeEach() {
+	mockI18n()
+		.with('now', 'jetzt')
+		.withDefault('TEXT')
+		.with('later', 'nachher'); // you can still set specific values, taking precedence.
+}
+```
+
+You can also unset the default if you don't need it later with `.withoutDefault()`.
+
+### More Examples
+
+The [test cases](tests/unit/time-block-test.js)
+in the dummy application testing a component displaying time differences
+use all available features.
 
 ## Contributing
 
 * `git clone` this repository
 * `npm install`
 * `bower install`
-* `ember server`
+* `ember serve`
 * Visit your app at http://localhost:4200.
 
 ## Running Tests
