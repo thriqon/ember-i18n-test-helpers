@@ -1,6 +1,7 @@
 # Ember-i18n-test-helpers
 
 [![Build Status](https://travis-ci.org/thriqon/ember-i18n-test-helpers.svg?branch=master)](https://travis-ci.org/thriqon/ember-i18n-test-helpers) [![Ember Observer Score](http://emberobserver.com/badges/ember-i18n-test-helpers.svg)](http://emberobserver.com/addons/ember-i18n-test-helpers)
+[![NPM version](https://img.shields.io/npm/v/ember-i18n-test-helpers.svg)](https://www.npmjs.com/package/ember-i18n-test-helpers)
 
 Components etc. in Ember make regular use of translated contents, either
 calculated in code or accessed in templates.
