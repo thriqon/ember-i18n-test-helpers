@@ -30,8 +30,13 @@ moduleForComponent('time-block', {
 
 	beforeEach() {
 		mockI18n()
-			.with('global.now', 'NOW')
-			.with('global.ago', params => 'AGO_' + params.seconds);
+			.with({
+				global: {
+					now: 'NOW',
+					ago: params => 'AGO_' + params.seconds
+				}
+			})
+			.with('yes', 'YES');
 	}
 });
 
@@ -76,6 +81,26 @@ beforeEach() {
 ```
 
 You can also unset the default if you don't need it later with `.withoutDefault()`.
+
+### Definitions
+
+Currently, two syntaxes are supported. The first maps keys directly to values:
+
+```javascript
+mockI18n().with('global.now', 'NOW');
+
+assert.equals(t('global.now'), 'NOW');
+```
+
+Alternatively, you can also just throw in a whole object that is parsed
+recursively:
+
+```javascript
+mockI18n()
+  .with({ global: {now: 'NOW'} });
+
+assert.equals(t('global.now'), 'NOW');
+```
 
 ### More Examples
 
