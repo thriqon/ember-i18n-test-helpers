@@ -32,7 +32,7 @@ test('it fails if the environment does not contain specified translation', funct
 	mockI18n()
 		.with('blah', 'test');
 
-	let t = getContext().container.lookup('helper:t');
+	let t = getContext().container.lookup('service:i18n').t;
 	assert.ok(t);
 
 	assert.throws(function () { t('asd'); });
@@ -46,7 +46,7 @@ test('it gives default answer when configured', function (assert) {
 		.withDefault('def')
 		.with('tomorrow', 'MORGEN');
 
-	let t = getContext().container.lookup('helper:t');
+	let t = getContext().container.lookup('service:i18n').t;
 
 	assert.equal(t('now'), 'JETZT', 'uses specific value defined before');
 	assert.equal(t('tomorrow'), 'MORGEN', 'uses specific value defined afterwards');
@@ -60,7 +60,7 @@ test('it gives new default answer when overwritten', function (assert) {
 		.withDefault('def')
 		.withDefault('defn');
 
-	let t = getContext().container.lookup('helper:t');
+	let t = getContext().container.lookup('service:i18n').t;
 
 	assert.equal(t('asd'), 'defn');
 });
@@ -72,7 +72,7 @@ test('it throws again if default answer is deactivated', function (assert) {
 		.withDefault('def')
 		.withoutDefault();
 
-	let t = getContext().container.lookup('helper:t');
+	let t = getContext().container.lookup('service:i18n').t;
 	assert.ok(t);
 
 	assert.throws(function () { t('asd'); });

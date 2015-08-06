@@ -10,6 +10,7 @@ define("ember-i18n-test-helpers", ["ember", "ember-test-helpers", "exports"], fu
 		instantiate: false
 	};
 
+
 	function mockI18n() {
 		var context = getContext();
 
@@ -24,9 +25,12 @@ define("ember-i18n-test-helpers", ["ember", "ember-test-helpers", "exports"], fu
 		};
 
 		context.registry.register('service:i18n', {t: t}, DO_NOT_INSTANTIATE);
-		context.registry.register('helper:t', t, DO_NOT_INSTANTIATE);
 
-		Ember.HTMLBars._registerHelper('t', t);
+		if (Ember.Helper && Ember.Helper.helper) {
+			context.registry.register('helper:t', Ember.Helper.helper(t), DO_NOT_INSTANTIATE);
+		} else {
+			Ember.HTMLBars._registerHelper('t', t);
+		}
 
 		return {
 			with: function (key, result) {
