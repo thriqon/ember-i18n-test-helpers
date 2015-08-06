@@ -78,3 +78,25 @@ test('it throws again if default answer is deactivated', function (assert) {
 	assert.throws(function () { t('asd'); });
 });
 
+test('it accepts dotted and nested object key syntax', function (assert) {
+	assert.expect(5);
+
+	mockI18n()
+		.with('global.later', 'Später')
+		.with({
+			now: 'JETZT',
+			global: {
+				yes: 'Ja',
+				no: 'Nein'
+			},
+			"global.maybe": 'vielleicht'
+		})
+		.with('cancel', 'Abbrechen');
+
+	let t = getContext().container.lookup('service:i18n').t;
+	assert.equal(t('now'), 'JETZT');
+	assert.equal(t('global.yes'), 'Ja');
+	assert.equal(t('global.maybe'), 'vielleicht');
+	assert.equal(t('global.later'), 'Später');
+	assert.equal(t('cancel'), 'Abbrechen');
+});

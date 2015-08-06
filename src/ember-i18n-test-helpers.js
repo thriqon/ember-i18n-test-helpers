@@ -6,6 +6,8 @@ define("ember-i18n-test-helpers", ["ember", "ember-test-helpers", "exports"], fu
 	Ember = Ember['default'] || Ember;
 	var getContext = EmberTestHelpers["getContext"];
 
+	var keys = Object.keys || Ember.keys;
+
 	var DO_NOT_INSTANTIATE = {
 		instantiate: false
 	};
@@ -32,10 +34,26 @@ define("ember-i18n-test-helpers", ["ember", "ember-test-helpers", "exports"], fu
 			Ember.HTMLBars._registerHelper('t', t);
 		}
 
+		function _with(key, result, prefix) {
+				Ember.assert('key should be a string or an object',
+						typeof key === "string" || typeof key === "object");
+
+				if (typeof key === "object") {
+					Ember.A(keys(key)).forEach(function (k) {
+						if (typeof key[k] === "object") {
+							_with(key[k], null, prefix + k + ".");
+						} else {
+							_with(prefix + k, key[k]);
+						}
+					});
+				} else {
+					translations[key] = hoistedToFunction(result);
+				}
+		}
+
 		return {
 			with: function (key, result) {
-				Ember.assert('key should be a string', typeof key === "string");
-				translations[key] = hoistedToFunction(result);
+				_with(key, result, "");
 				return this;
 			},
 

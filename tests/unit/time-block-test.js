@@ -42,8 +42,12 @@ moduleForComponent('time-block', {
 
 	beforeEach() {
 		mockI18n()
-			.with('global.now', 'NOW')
-			.with('global.ago', params => 'AGO_' + params.seconds)
+			.with({
+				global: {
+					now: 'NOW',
+					ago: params => 'AGO_' + params.seconds
+				}
+			})
 			.with('global.introduction', 'INTRO')
 			.withDefault('def');
 	}
