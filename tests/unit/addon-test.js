@@ -26,42 +26,70 @@ test('does not change the identity of the function', function (assert) {
 
 moduleFor('template:application');
 
+test('it gives service with t() and exists() functions', function (assert) {
+	assert.expect(2);
+
+	mockI18n()
+		.with('blah', 'test');
+
+	const { t, exists } = getContext().container.lookup('service:i18n');
+
+	assert.ok(exists);
+	assert.ok(t);
+});
+
+test('it succeed if the environment does contain specified translation', function (assert) {
+	assert.expect(2);
+
+	mockI18n()
+		.with('blah', 'test');
+
+	const { t, exists } = getContext().container.lookup('service:i18n');
+
+	assert.ok(exists('blah'));
+	assert.equal(t('blah'), 'test');
+});
+
 test('it fails if the environment does not contain specified translation', function (assert) {
 	assert.expect(2);
 
 	mockI18n()
 		.with('blah', 'test');
 
-	let t = getContext().container.lookup('service:i18n').t;
-	assert.ok(t);
+	const { t, exists } = getContext().container.lookup('service:i18n');
 
+	assert.notOk(exists('asd'));
 	assert.throws(function () { t('asd'); });
 });
 
 test('it gives default answer when configured', function (assert) {
-	assert.expect(3);
+	assert.expect(6);
 
 	mockI18n()
 		.with('now', 'JETZT')
 		.withDefault('def')
 		.with('tomorrow', 'MORGEN');
 
-	let t = getContext().container.lookup('service:i18n').t;
+	const { t, exists } = getContext().container.lookup('service:i18n');
 
+	assert.ok(exists('now'));
 	assert.equal(t('now'), 'JETZT', 'uses specific value defined before');
+	assert.ok(exists('tomorrow'));
 	assert.equal(t('tomorrow'), 'MORGEN', 'uses specific value defined afterwards');
+	assert.notOk(exists('asd'));
 	assert.equal(t('asd'), 'def');
 });
 
 test('it gives new default answer when overwritten', function (assert) {
-	assert.expect(1);
+	assert.expect(2);
 
 	mockI18n()
 		.withDefault('def')
 		.withDefault('defn');
 
-	let t = getContext().container.lookup('service:i18n').t;
+	const { t, exists } = getContext().container.lookup('service:i18n');
 
+	assert.notOk(exists('asd'));
 	assert.equal(t('asd'), 'defn');
 });
 
@@ -72,14 +100,14 @@ test('it throws again if default answer is deactivated', function (assert) {
 		.withDefault('def')
 		.withoutDefault();
 
-	let t = getContext().container.lookup('service:i18n').t;
-	assert.ok(t);
+	const { t, exists } = getContext().container.lookup('service:i18n');
 
+	assert.notOk(exists('asd'));
 	assert.throws(function () { t('asd'); });
 });
 
 test('it accepts dotted and nested object key syntax', function (assert) {
-	assert.expect(5);
+	assert.expect(10);
 
 	mockI18n()
 		.with('global.later', 'Später')
@@ -93,10 +121,16 @@ test('it accepts dotted and nested object key syntax', function (assert) {
 		})
 		.with('cancel', 'Abbrechen');
 
-	let t = getContext().container.lookup('service:i18n').t;
+	const { t, exists } = getContext().container.lookup('service:i18n');
+
+	assert.ok(exists('now'));
 	assert.equal(t('now'), 'JETZT');
+	assert.ok(exists('global.yes'));
 	assert.equal(t('global.yes'), 'Ja');
+	assert.ok(exists('global.maybe'));
 	assert.equal(t('global.maybe'), 'vielleicht');
+	assert.ok(exists('global.later'));
 	assert.equal(t('global.later'), 'Später');
+	assert.ok(exists('cancel'));
 	assert.equal(t('cancel'), 'Abbrechen');
 });
