@@ -26,7 +26,15 @@ define("ember-i18n-test-helpers", ["ember", "ember-test-helpers", "exports"], fu
 			return entry(params);
 		};
 
-		context.registry.register('service:i18n', {t: t}, DO_NOT_INSTANTIATE);
+		var exists = function existsHelper(key, params) {
+			var entry = translations[key] || undefined;
+			return !!entry;
+		};
+
+		context.registry.register('service:i18n', {
+			t: t,
+			exists: exists
+		}, DO_NOT_INSTANTIATE);
 
 		if (Ember.Helper && Ember.Helper.helper) {
 			context.registry.register('helper:t', Ember.Helper.helper(t), DO_NOT_INSTANTIATE);
@@ -61,7 +69,7 @@ define("ember-i18n-test-helpers", ["ember", "ember-test-helpers", "exports"], fu
 				defaultValue = hoistedToFunction(result);
 				return this;
 			},
-			
+
 			withoutDefault: function () {
 				defaultValue = null;
 				return this;
